@@ -12,27 +12,22 @@ Future<void> main() async {
   // Get a specific camera from the list of available cameras
   final firstCamera = cameras.first;
 
-  runApp(
-    MaterialApp(
-      theme: ThemeData.dark(),
-      home: TakePictureScreen(
-        // Pass the appropriate camera to the TakePictureScreen widget.
-        camera: firstCamera,
-      ),
-    ),
-  );
+  runApp(MainApp(camera: firstCamera));
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  final CameraDescription camera;
+  const MainApp({super.key, required this.camera});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
+    return MaterialApp(
+      // Choose green color for theme
+      theme: ThemeData(
+        primaryColor: Colors.greenAccent,
+      ),
+      home: TakePictureScreen(
+        camera: camera,
       ),
     );
   }
@@ -78,8 +73,8 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
   @override
   Widget build(BuildContext context) {
-        return Scaffold(
-      appBar: AppBar(title: const Text('Take a picture')),
+    return Scaffold(
+      appBar: AppBar(title: const Text('Click ingredients photo')),
       // You must wait until the controller is initialized before displaying the
       // camera preview. Use a FutureBuilder to display a loading spinner until the
       // controller has finished initializing.
@@ -95,7 +90,10 @@ class TakePictureScreenState extends State<TakePictureScreen> {
           }
         },
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
+        shape: const CircleBorder(),
         // Provide an onPressed callback.
         onPressed: () async {
           // Take the Picture in a try / catch block. If anything goes wrong,
@@ -125,7 +123,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             print(e);
           }
         },
-        child: const Icon(Icons.camera_alt),
+        child: const Icon(Icons.camera_alt_rounded),
       ),
     );
   }
