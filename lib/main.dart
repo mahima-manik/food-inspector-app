@@ -4,9 +4,15 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
-Future<void> main() async {
+import 'package:firebase_core/firebase_core.dart';
+import 'package:food_inspector_app/firebase_options.dart';
+
+void main() async {
   // Ensure that plugin services are initialized
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   // Obtain a list of the available cameras on the device
   final cameras = await availableCameras();
   // Get a specific camera from the list of available cameras

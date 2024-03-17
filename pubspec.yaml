@@ -21,7 +21,6 @@ dependencies:
 
   # Store
   cloud_firestore: ^4.15.9
-  firebase_storage: ^11.16.10
 
 dev_dependencies:
   flutter_test:
